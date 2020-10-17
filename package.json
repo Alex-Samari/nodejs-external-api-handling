@@ -7,5 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alex Samari",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.12.1",
+    "hapi": "^18.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.1"
+  }
 }
