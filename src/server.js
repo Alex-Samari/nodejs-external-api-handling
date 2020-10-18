@@ -19,7 +19,7 @@ const start = async () => {
 
 // Handle otherwise Unhandled Rejections globally
 process.on('unhandledRejection', err => {
-	console.log(err);
+	Boom.boomify(err, { statusCode: 500 });
 	process.exit(1);
 })
 

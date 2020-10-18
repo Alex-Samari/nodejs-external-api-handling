@@ -1,3 +1,5 @@
+import Boom from '@hapi/boom';
+
 const Wreck = require('@hapi/wreck');
 
 // Get Api Ping Route
@@ -35,11 +37,11 @@ export const getPostsRoute = {
 
 			// make sure "sortBy" parameter values are correct
 			if (sortBy && !validSortByOptions.find(option => option === sortBy)) {
-				// Show Error Here
+				Boom.badRequest('Invalid sort query');
 			}
 			// make sure "direction" parameter values are correct
 			if (direction && !validDirectionOptions.find(option => option === direction)) {
-				// Show Error Here
+				Boom.badRequest('Invalid direction query');
 			}
 
 			// Setting default parameter values in case they don't already exist
@@ -92,16 +94,13 @@ export const getPostsRoute = {
 					}
 
 				}).catch((err) => {
-					// Show Error Here
+					Boom.badImplementation('External API Error');
 				})
-
 		}
 		else {
-			// Show Error Here
+			Boom.badRequest('Invalid tag query. Tag is required!');
 		}
-
 		return h.response(structuredResponse).code(200);
-
 	}
 }
 
