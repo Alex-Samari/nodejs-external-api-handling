@@ -1,4 +1,5 @@
 import Boom from '@hapi/boom';
+import Joi from '@hapi/joi';
 
 const Wreck = require('@hapi/wreck');
 
