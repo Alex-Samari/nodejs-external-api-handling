@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "lab -v **/*.test.js",
+    "test": "node node_modules/@hapi/lab -v **/*.test.js",
     "dev": "npx nodemon --exec npx babel-node index.js"
   },
   "author": "Alex Samari",
