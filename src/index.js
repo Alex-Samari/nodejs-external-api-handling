@@ -1,11 +1,11 @@
 import Hapi from '@hapi/hapi';
-import { routes } from './routes';
+import { routes } from './routes/routes-index';
 import Boom from '@hapi/boom';
 
 // Start function sets the server information and routing
-const start = async () => {
+const init = async () => {
 	const server = Hapi.server({
-		port: process.env.PORT || 8000,
+		port: process.env.PORT || 3000,
 		host: 'localhost'
 	})
 
@@ -23,4 +23,4 @@ process.on('unhandledRejection', err => {
 	process.exit(1);
 })
 
-start();
+init();
