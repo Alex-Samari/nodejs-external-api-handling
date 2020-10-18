@@ -1,10 +1,14 @@
 # blog-posts
 
-### blog-posts API written in [Hapi](https://hapi.dev) framework for [Hatchways](https://www.hatchways.io/) back-end assessment project
+This project was written in **[NodeJS](https://nodejs.org/en/)** using the **[Hapi](https://hapi.dev)** framework as the back-end developer assessment for **[Hatchways](https://www.hatchways.io/)** in 2020.
 
-## Dependancies
+The purpose of this project is to create an API that handles external API calls and sorts the received data in a certain way. It includes best practices such as tesing, caching and concurrent API calls.
 
-This app is built using node modules. Run `npm install` to install dependencies
+For a detailed guide on how to complete the assessment on your own, please refer to the **[Instructions](docs/back-end-assessment-blog-posts.pdf)**
+
+## Installation
+
+Run `npm install` to install dependencies
 
 ## Development server
 
@@ -14,15 +18,13 @@ Run `npm run dev` for a dev server. Navigate to `http://localhost:3000/`. The ap
 
 Run `npm run test` to execute tests.
 
-## Documentation
+## Notable npm packages
 
-- Notable npm packages
+- [hapi](https://github.com/hapijs/hapi), The Simple, Secure Framework Developers Trust
 
-  - [hapi](https://github.com/hapijs/hapi), The Simple, Secure Framework Developers Trust
+- [joi](https://github.com/hapijs/joi), The most powerful schema description language and data validator for JavaScript.
 
-  - [joi](https://github.com/hapijs/joi), The most powerful schema description language and data validator for JavaScript.
-
-  - [lab](https://github.com/hapijs/lab), Node test utility written for [hapi web framework](https://hapi.dev/)
+- [lab](https://github.com/hapijs/lab), Node test utility written for [hapi web framework](https://hapi.dev/)
 
 ## Known Issues
 
