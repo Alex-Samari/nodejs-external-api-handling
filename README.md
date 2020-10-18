@@ -1,4 +1,4 @@
-# blog-posts
+# Blog Posts API
 
 This project was written in **[NodeJS](https://nodejs.org/en/)** using the **[Hapi](https://hapi.dev)** framework as the back-end developer assessment for **[Hatchways](https://www.hatchways.io/)** in 2020.
 
