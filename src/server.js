@@ -1,5 +1,6 @@
-import Hapi from '@hapi/hapi'
-import { routes } from './routes'
+import Hapi from '@hapi/hapi';
+import { routes } from './routes';
+import Boom from '@hapi/boom';
 
 // Start function sets the server information and routing
 const start = async () => {
