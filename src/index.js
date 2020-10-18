@@ -1,26 +1,5 @@
-import Hapi from '@hapi/hapi';
-import { routes } from './routes/routes-index';
-import Boom from '@hapi/boom';
+`use strict`;
 
-// Start function sets the server information and routing
-const init = async () => {
-	const server = Hapi.server({
-		port: process.env.PORT || 3000,
-		host: 'localhost'
-	})
+import start from './lib/server';
 
-	routes.forEach(route => {
-		server.route(route);
-	});
-
-	await server.start();
-	console.log(`Server is listening on ${server.info.uri}`);
-}
-
-// Handle otherwise Unhandled Rejections globally
-process.on('unhandledRejection', err => {
-	Boom.boomify(err, { statusCode: 500 });
-	process.exit(1);
-})
-
-init();
+start();
