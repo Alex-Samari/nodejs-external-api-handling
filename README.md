@@ -2,13 +2,17 @@
 
 ### blog-posts API written in [Hapi](https://hapi.dev) framework for [Hatchways](https://www.hatchways.io/) back-end assessment project
 
-## How to run
+## Dependancies
 
-```sh
-  npm install #install dependencies
-  npm run dev # start server in development mode
-  npm run test # run tests
-```
+This app is built using node modules. Run `npm install` to install dependencies
+
+## Development server
+
+Run `npm run dev` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+
+## Testing
+
+Run `npm run test` to execute tests.
 
 ## Documentation
 
