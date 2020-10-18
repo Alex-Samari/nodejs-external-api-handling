@@ -20,7 +20,15 @@
 
   - [lab](https://github.com/hapijs/lab), Node test utility written for [hapi web framework](https://hapi.dev/)
 
-## NOTES
+## Known Issues
 
 - Testing functionality might be broken and requires further investigation
-- Testing is only implemented for the "/api/ping" route as of now
+- Testing is only implemented for the "/api/ping" route as of version 1.0.0
+- Concurrent API requests might not work as intended
+
+## Roadmap
+
+- Fix testing functionality
+- Complete testing for the entire application
+- Implement caching
+- Further investigate concurrent API requests
