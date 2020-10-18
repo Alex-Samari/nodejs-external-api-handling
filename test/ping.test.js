@@ -1,8 +1,7 @@
 'use strict';
 
 import Lab from '@hapi/lab';
-import expect from '@hapi/code';
-
+import { expect } from '@hapi/code';
 const { afterEach, beforeEach, describe, it } = exports.lab = Lab.script();
 const { init } = require('../lib/server');
 
