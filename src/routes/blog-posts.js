@@ -28,80 +28,64 @@ export const getPostsRoute = {
 
 		const { tags, sortBy, direction } = req.query;
 
-		// create an array of tags based on the query passed to the URL. Otherwise set null
-		const tagArr = tags ? tags.split(',') : null;
+		// create an array of tags based on the "tags" query parameter passed to the URL
+		const tagArr = tags.split(',');
 
-		// Check for the mandatory "tags" parameter
-		if (tagArr && tagArr[0]) {
-			const validSortByOptions = ['id', 'reads', 'likes', 'popularity'];
-			const validDirectionOptions = ['asc', 'desc'];
+		const externalCallArr = [];
 
-			// make sure "sortBy" parameter values are correct
-			if (sortBy && !validSortByOptions.find(option => option === sortBy)) {
-				Boom.badRequest('Invalid sort query');
-			}
-			// make sure "direction" parameter values are correct
-			if (direction && !validDirectionOptions.find(option => option === direction)) {
-				Boom.badRequest('Invalid direction query');
-			}
-
-			// Setting default parameter values in case they don't already exist
-			if (!sortBy) {
-				sortBy = 'id';
-			}
-
-			if (!direction) {
-				direction = 'asc';
-			}
-
-			const externalCallArr = [];
-
-			/**
-			 * Create a new external API call for each "tag" query parameter.
-			 * We do this because the external API only accepts a single tag paramter for each request
-			 */
-			for (const tag of tagArr) {
-				externalCallArr.push(getBlogPostByTagExternalCall(tag));
-			}
-
-			// Concurrently call multiple external API requests based on the number of "tag" parameters
-			await Promise.all(externalCallArr)
-				.then(function (results) {
-					let unsortedPostArr = [];
-
-					for (const result of results) {
-						const { res, payload } = result;
-						const parsedData = JSON.parse(payload.toString());
-
-						const subsetArrOfPosts = parsedData.posts;
-
-						unsortedPostArr = unsortedPostArr.concat(subsetArrOfPosts);
-					}
-
-					// Remove duplicates from the unsorted array based on post "id" 
-					unsortedPostArr = unsortedPostArr.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
-
-					// Sort the array based on "direction" and "sortBy" values  
-					if (direction === 'asc') {
-						unsortedPostArr = unsortedPostArr.sort((a, b) => (b[sortBy] < a[sortBy]) ? 1 : -1);
-
-					} else {
-						unsortedPostArr = unsortedPostArr.sort((a, b) => (b[sortBy] > a[sortBy]) ? 1 : -1);
-					}
-
-					// Setting the api response body. Note that "unsortedPostArr" is sorted at this point
-					structuredResponse = {
-						"posts": unsortedPostArr
-					}
-
-				}).catch((err) => {
-					Boom.badImplementation('External API Error');
-				})
+		/**
+		 * Create a new external API call for each "tag" query parameter.
+		 * We do this because the external API only accepts a single tag paramter for each request
+		 */
+		for (const tag of tagArr) {
+			externalCallArr.push(getBlogPostByTagExternalCall(tag));
 		}
-		else {
-			Boom.badRequest('Invalid tag query. Tag is required!');
-		}
+
+		// Concurrently call multiple external API requests based on the number of "tag" parameters
+		await Promise.all(externalCallArr)
+			.then(function (results) {
+				let unsortedPostArr = [];
+
+				for (const result of results) {
+					const { res, payload } = result;
+					const parsedData = JSON.parse(payload.toString());
+
+					const subsetArrOfPosts = parsedData.posts;
+
+					unsortedPostArr = unsortedPostArr.concat(subsetArrOfPosts);
+				}
+
+				// Remove duplicates from the unsorted array based on post "id" 
+				unsortedPostArr = unsortedPostArr.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
+
+				// Sort the array based on "direction" and "sortBy" values  
+				if (direction === 'asc') {
+					unsortedPostArr = unsortedPostArr.sort((a, b) => (b[sortBy] < a[sortBy]) ? 1 : -1);
+
+				} else {
+					unsortedPostArr = unsortedPostArr.sort((a, b) => (b[sortBy] > a[sortBy]) ? 1 : -1);
+				}
+
+				// Setting the api response body. Note that "unsortedPostArr" is sorted at this point
+				structuredResponse = {
+					"posts": unsortedPostArr
+				}
+
+			}).catch((err) => {
+				Boom.badImplementation('External API Error');
+			})
+
+
 		return h.response(structuredResponse).code(200);
+	},
+	options: {
+		validate: {
+			query: Joi.object({
+				tags: Joi.string().min(1).required(),
+				direction: Joi.string().valid('asc', 'desc').default('asc'),
+				sortBy: Joi.string().valid('id', 'reads', 'likes', 'popularity').default('id'),
+			})
+		}
 	}
 }
 
