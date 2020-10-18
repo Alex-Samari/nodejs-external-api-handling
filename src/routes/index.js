@@ -1,7 +1,7 @@
-import { getApiPingRoute, getPostsRoute, getBlogPostByTagRoute } from './blog-posts';
+import { getApiPingRoute, getPostsRoute } from './blog-posts';
 
+// Define all API routes
 export const routes = [
 	getApiPingRoute,
-	getPostsRoute,
-	getBlogPostByTagRoute
+	getPostsRoute
 ]
